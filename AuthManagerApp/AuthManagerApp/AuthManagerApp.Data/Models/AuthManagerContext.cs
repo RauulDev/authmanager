@@ -64,17 +64,19 @@ namespace AuthManagerApp.Data.Models
                     .HasColumnName("email");
 
                 entity.Property(e => e.FullName)
+                    .IsRequired()
                     .HasMaxLength(250)
                     .HasColumnName("fullName");
 
                 entity.Property(e => e.LoginName)
+                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("loginName");
 
                 entity.Property(e => e.Password)
-                    .HasMaxLength(64)
-                    .HasColumnName("password")
-                    .IsFixedLength(true);
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .HasColumnName("password");
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(50)
@@ -85,6 +87,7 @@ namespace AuthManagerApp.Data.Models
                 entity.HasOne(d => d.RoleNavigation)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.Role)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_User_Role");
             });
 

@@ -16,7 +16,16 @@ namespace AuthManagerApp.Data.Providers
         {
             _context = context;
         }
-        public User GetUser(string loginName, string password)
+
+        public User Add(User user)
+        {
+            _context.Add(user);
+            _context.SaveChanges();
+
+            return user;
+        }
+
+        public User Get(string loginName, string password)
         {
             var user = _context.Users.FirstOrDefault(user => user.LoginName == loginName);
             return user;

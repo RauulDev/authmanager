@@ -5,3 +5,5 @@ AuthManagerApp/AuthManagerApp/AuthManagerApp.Data/bin/*
 AuthManagerApp/AuthManagerApp/AuthManager.Entities/obj/*
 AuthManagerApp/AuthManagerApp/AuthManager.Logic/obj/*
 AuthManagerApp/AuthManagerApp/AuthManagerApp.Data/obj/*
+AuthManagerApp/AuthManagerApp/AuthManager.Entities/bin/*
+AuthManagerApp/AuthManagerApp/AuthManager.Logic/bin/*

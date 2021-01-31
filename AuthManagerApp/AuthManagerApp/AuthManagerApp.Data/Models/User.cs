@@ -13,9 +13,9 @@ namespace AuthManagerApp.Data.Models
         public string Phone { get; set; }
         public string Email { get; set; }
         public short? Age { get; set; }
-        public int? Role { get; set; }
+        public int Role { get; set; }
         public string LoginName { get; set; }
-        public byte[] Password { get; set; }
+        public string Password { get; set; }
 
         public virtual Role RoleNavigation { get; set; }
     }

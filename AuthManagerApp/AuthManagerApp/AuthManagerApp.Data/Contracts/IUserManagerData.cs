@@ -7,6 +7,7 @@ namespace AuthManagerApp.Data.Contracts
 {
     public interface IUserManagerData
     {
-        User GetUser(string loginName, string password);
+        User Get(string loginName, string password);
+        User Add(User user);
     }
 }
