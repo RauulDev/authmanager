@@ -1,3 +1,7 @@
 AuthManagerApp/AuthManagerApp/.vs/*
 AuthManagerApp/AuthManagerApp/AuthManagerApp/bin/*
 AuthManagerApp/AuthManagerApp/AuthManagerApp/obj/*
+AuthManagerApp/AuthManagerApp/AuthManagerApp.Data/bin/*
+AuthManagerApp/AuthManagerApp/AuthManager.Entities/obj/*
+AuthManagerApp/AuthManagerApp/AuthManager.Logic/obj/*
+AuthManagerApp/AuthManagerApp/AuthManagerApp.Data/obj/*

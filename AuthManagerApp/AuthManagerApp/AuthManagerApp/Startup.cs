@@ -1,3 +1,8 @@
+using AuthManager.Entities;
+using AuthManager.Logic.Contracts;
+using AuthManager.Logic.Providers;
+using AuthManagerApp.Data.Contracts;
+using AuthManagerApp.Data.Providers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +30,10 @@ namespace AuthManagerApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            var jwtSection = Configuration.GetSection("JWTSettings");
+            services.Configure<JWTSettings>(jwtSection);
+            services.AddSingleton<IUserManager, UserManager>();
+            services.AddSingleton<IUserManagerData, UserManagerData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
