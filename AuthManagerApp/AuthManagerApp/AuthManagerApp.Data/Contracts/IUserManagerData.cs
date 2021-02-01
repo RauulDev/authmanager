@@ -12,5 +12,6 @@ namespace AuthManagerApp.Data.Contracts
         Task<User> Get(int id);
         Task<User> Add(User user);
         Task<List<User>> GetAll();
+        Task<bool> Delete(int id);
     }
 }

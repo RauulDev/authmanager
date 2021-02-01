@@ -5,18 +5,17 @@ using System.Collections.Generic;
 
 namespace AuthManagerApp.Data.Models
 {
-    public partial class Role
+    public partial class Permission
     {
-        public Role()
+        public Permission()
         {
             RolePermissions = new HashSet<RolePermission>();
-            Users = new HashSet<User>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
 
         public virtual ICollection<RolePermission> RolePermissions { get; set; }
-        public virtual ICollection<User> Users { get; set; }
     }
 }

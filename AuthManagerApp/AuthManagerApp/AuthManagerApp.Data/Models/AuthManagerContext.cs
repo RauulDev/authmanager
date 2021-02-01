@@ -17,7 +17,9 @@ namespace AuthManagerApp.Data.Models
         {
         }
 
+        public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<RolePermission> RolePermissions { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -32,6 +34,24 @@ namespace AuthManagerApp.Data.Models
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
 
+            modelBuilder.Entity<Permission>(entity =>
+            {
+                entity.ToTable("Permission");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id");
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(200)
+                    .HasColumnName("description");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnName("name");
+            });
+
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.ToTable("Role");
@@ -44,6 +64,31 @@ namespace AuthManagerApp.Data.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("name");
+            });
+
+            modelBuilder.Entity<RolePermission>(entity =>
+            {
+                entity.ToTable("RolePermission");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id");
+
+                entity.Property(e => e.IdPermission).HasColumnName("id_permission");
+
+                entity.Property(e => e.IdRole).HasColumnName("id_role");
+
+                entity.HasOne(d => d.IdPermissionNavigation)
+                    .WithMany(p => p.RolePermissions)
+                    .HasForeignKey(d => d.IdPermission)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_RolePermission_Permission");
+
+                entity.HasOne(d => d.IdRoleNavigation)
+                    .WithMany(p => p.RolePermissions)
+                    .HasForeignKey(d => d.IdRole)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_RolePermission_Role");
             });
 
             modelBuilder.Entity<User>(entity =>

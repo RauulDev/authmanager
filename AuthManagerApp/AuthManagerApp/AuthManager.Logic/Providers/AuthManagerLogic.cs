@@ -5,7 +5,6 @@ using AuthManagerApp.Data.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -26,17 +25,15 @@ namespace AuthManager.Logic.Providers
         public async Task<Token> Login(User userLogin)
         {
             var user = await _userManagerData.Get(userLogin.LoginName, userLogin.Password);
-
+            
             if (user == null)
             {
                 return null;
             }
-
-            return GenerateAccessToken(user.Id);
-
+            return GenerateAccessToken(user);
         }
 
-        private Token GenerateAccessToken(int userId)
+        private Token GenerateAccessToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtsettings.SecretKey);
@@ -44,7 +41,8 @@ namespace AuthManager.Logic.Providers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, Convert.ToString(userId))
+                    new Claim(ClaimTypes.Name, Convert.ToString(user.Id)),
+                    new Claim(ClaimTypes.Role, Convert.ToString(user.Role))
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
@@ -53,7 +51,6 @@ namespace AuthManager.Logic.Providers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             string strToken = tokenHandler.WriteToken(token);
             return new Token { AccessToken = strToken, ExpirationTime = 3600 };
-
         }
     }
 }

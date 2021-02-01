@@ -17,10 +17,16 @@ namespace AuthManagerApp.Controllers
         {
             _authManager = authManager;
         }
+
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] User user)
         {
-            return Ok(await _authManager.Login(user));
+            var loginResult = await _authManager.Login(user);
+            if(loginResult == null)
+            {
+                return Unauthorized();
+            }
+            return Ok(loginResult);
         }
     }
 }

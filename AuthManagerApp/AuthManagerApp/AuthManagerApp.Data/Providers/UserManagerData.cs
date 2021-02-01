@@ -25,6 +25,19 @@ namespace AuthManagerApp.Data.Providers
             return user;
         }
 
+        public async Task<bool> Delete(int id)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(user => user.Id == id);
+            if(user != null)
+            {
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
         public async Task<User> Get(string loginName, string password)
         {
             var user = await _context.Users.FirstOrDefaultAsync(user => user.LoginName == loginName && user.Password == password);

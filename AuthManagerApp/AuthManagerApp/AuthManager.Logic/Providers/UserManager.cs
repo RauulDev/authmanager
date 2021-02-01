@@ -21,6 +21,11 @@ namespace AuthManager.Logic.Providers
             return await _userManagerData.Add(user);
         }
 
+        public async Task<bool> Delete(int id)
+        {
+            return await _userManagerData.Delete(id);
+        }
+
         public async Task<AuthManagerApp.Data.Models.User> Get(int id)
         {
             return await _userManagerData.Get(id);
@@ -29,12 +34,6 @@ namespace AuthManager.Logic.Providers
         public async Task<List<AuthManagerApp.Data.Models.User>> GetAll()
         {
             return await _userManagerData.GetAll();   
-        }
-
-        public bool Login(string loginName, string password)
-        {
-            var user = _userManagerData.Get(loginName, password);
-            return user != null;
         }
     }
 }

@@ -11,5 +11,6 @@ namespace AuthManager.Logic.Contracts
         Task<User> Add(User user);
         Task<User> Get(int id);
         Task<List<User>> GetAll();
+        Task<bool> Delete(int id);
     }
 }
