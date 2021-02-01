@@ -1,4 +1,6 @@
 ﻿using AuthManager.Logic.Contracts;
+using AuthManagerApp.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,7 @@ using System.Threading.Tasks;
 namespace AuthManagerApp.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class UsersController : Controller
     {
         private readonly IUserManager _usersManager;
@@ -17,19 +20,23 @@ namespace AuthManagerApp.Controllers
             _usersManager = usersManager;
         }
 
-
-        //[HttpPost("Login")]
-        //public async Task<ActionResult<UserWithToken>> Login([FromBody] User user)
-        //{
-        //    var log = _usersManager.Login("remolina7@gmail.com", "");
-        //    return Ok();
-        //}
-
-        [HttpGet("GetUser")]
-        public async Task<ActionResult<object>> GetUserDetails()
+        [HttpGet]
+        public async Task<ActionResult<object>> GetUsers()
         {
-            var log = _usersManager.Login("remolina7@gmail.com", "");
-            return Ok();
+            return Ok(await _usersManager.GetAll());
+        }
+
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<User>> GetUserDetails(int id)
+        {
+            return Ok(await _usersManager.Get(id));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<User>> AddUser([FromBody] User user)
+        {
+            return Ok(await _usersManager.Add(user));
         }
 
     }

@@ -4,7 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace AuthManagerApp.Data.Providers
 {
@@ -17,18 +18,28 @@ namespace AuthManagerApp.Data.Providers
             _context = context;
         }
 
-        public User Add(User user)
+        public async Task<User> Add(User user)
         {
             _context.Add(user);
-            _context.SaveChanges();
-
+            await _context.SaveChangesAsync();
             return user;
         }
 
-        public User Get(string loginName, string password)
+        public async Task<User> Get(string loginName, string password)
         {
-            var user = _context.Users.FirstOrDefault(user => user.LoginName == loginName);
+            var user = await _context.Users.FirstOrDefaultAsync(user => user.LoginName == loginName && user.Password == password);
             return user;
+        }
+
+        public async Task<User> Get(int id)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(user => user.Id == id);
+            return user;
+        }
+
+        public async Task<List<User>> GetAll()
+        {
+            return await _context.Users.ToListAsync();
         }
     }
 }
