@@ -4,6 +4,7 @@ using AuthManager.Logic.Providers;
 using AuthManagerApp.Data.Contracts;
 using AuthManagerApp.Data.Models;
 using AuthManagerApp.Data.Providers;
+using AuthManagerApp.Handlers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -60,6 +61,9 @@ namespace AuthManagerApp
             services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<IUserManagerData, UserManagerData>();
             services.AddScoped<IAuthManagerLogic, AuthManagerLogic>();
+            services.AddScoped<IRolePermissionsManager, RolePermissionsManager>();
+            services.AddScoped<IRolePermissionsData, RolePermissionsData>();
+            //services.AddScoped<HasPermissionAttribute>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

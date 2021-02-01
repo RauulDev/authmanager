@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace AuthManagerApp.Data.Providers
 {
-    public class RolePermissions : IRolePermissions
+    public class RolePermissionsData : IRolePermissionsData
     {
         private readonly AuthManagerContext _context;
 
-        public RolePermissions(AuthManagerContext context)
+        public RolePermissionsData(AuthManagerContext context)
         {
             _context = context;
         }
-        public async Task<List<Permission>> GetPermissionsByRole(int idRole)
+        public List<Permission> GetPermissionsByRole(int idRole)
         {
             var permissions = _context.RolePermissions.Where(rp => rp.IdRole == idRole).Select(s => s.IdPermissionNavigation);
-            return await permissions.ToListAsync();
+            return  permissions.ToList();
         }
     }
 }

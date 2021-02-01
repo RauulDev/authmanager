@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace AuthManagerApp.Data.Contracts
 {
-    public interface IRolePermissions
+    public interface IRolePermissionsData
     {
-        Task<List<Permission>> GetPermissionsByRole(int idRole);
+        List<Permission> GetPermissionsByRole(int idRole);
     }
 }

@@ -21,6 +21,7 @@ namespace AuthManagerApp.Controllers
 
         [HttpGet]
         [HasPermission(PermissionsEnum.ListUsers)]
+
         public async Task<ActionResult<object>> GetUsers()
         {
             return Ok(await _usersManager.GetAll());
@@ -34,12 +35,14 @@ namespace AuthManagerApp.Controllers
         }
 
         [HttpPost]
+        [HasPermission(PermissionsEnum.CreateUsers)]
         public async Task<ActionResult<User>> AddUser([FromBody] User user)
         {
             return Ok(await _usersManager.Add(user));
         }
 
         [HttpDelete("{id}")]
+        [HasPermission(PermissionsEnum.DeleteUsers)]
         public async Task<ActionResult<User>> DeleteUser(int id)
         {
             return Ok(await _usersManager.Delete(id));
