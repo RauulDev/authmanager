@@ -1,0 +1,27 @@
+<div class="sidenav">
+   <div class="login-main-text">
+      <h2>Application<br> Login Page</h2>
+      <p>Login or register from here to access.</p>
+   </div>
+</div>
+<div class="main">
+   <div class="col-md-6 col-sm-12">
+      <div class="login-form">
+         <form>
+            <div class="form-group">
+               <label>Login</label>
+               <input type="text" class="form-control" name="email" [(ngModel)]="email">
+            </div>
+            <div class="form-group">
+               <label>Password</label>
+               <input type="password" class="form-control" placeholder="Password" name="password"
+                  [(ngModel)]="password">
+            </div>
+            <button class="btn btn-black" (click)="login()">Login</button>
+         </form>
+         <div class="error-login">
+            <ngb-alert *ngIf="showErrorLogin" [type]="'danger'">Login error, check your credentials</ngb-alert>
+         </div>
+      </div>
+   </div>
+</div>

@@ -20,6 +20,8 @@ namespace AuthManagerApp
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -58,11 +60,33 @@ namespace AuthManagerApp
                 };
             });
 
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: MyAllowSpecificOrigins,
+            //                      builder =>
+            //                      {
+            //                          builder.WithOrigins("http://localhost:4200");
+            //                      });
+            //});
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+                });
+            });
+
             services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<IUserManagerData, UserManagerData>();
             services.AddScoped<IAuthManagerLogic, AuthManagerLogic>();
             services.AddScoped<IRolePermissionsManager, RolePermissionsManager>();
             services.AddScoped<IRolePermissionsData, RolePermissionsData>();
+            
             //services.AddScoped<HasPermissionAttribute>();
         }
 
@@ -74,6 +98,8 @@ namespace AuthManagerApp
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors();
+
             app.UseRouting();
 
             app.UseAuthentication();
@@ -84,6 +110,7 @@ namespace AuthManagerApp
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }
