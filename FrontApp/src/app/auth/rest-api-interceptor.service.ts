@@ -12,7 +12,7 @@ export class RestApiInterceptorService implements HttpInterceptor {
         const cookieAUTH = this.cookieService.get('AUTH');
         if (cookieAUTH) {
             const objAUTH = JSON.parse(cookieAUTH);
-            const clonedRequest = req.clone({ headers: req.headers.append('Authorization', `Bearer ${objAUTH.access_token}`) });
+            const clonedRequest = req.clone({ headers: req.headers.append('Authorization', `Bearer ${objAUTH.accessToken}`) });
             return next.handle(clonedRequest);
         }
         return next.handle(req);

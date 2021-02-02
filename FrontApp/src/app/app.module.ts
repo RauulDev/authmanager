@@ -21,6 +21,9 @@ import { RestApiInterceptorService } from './auth/rest-api-interceptor.service';
 import { ProfileMeService } from './services/me.service';
 import { HeaderComponent } from './components/header/header.component';
 import { AgmCoreModule } from '@agm/core';
+import { HomeComponent } from './components/home/home.component';
+import { UsersComponent } from './components/users/users.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,9 @@ import { AgmCoreModule } from '@agm/core';
     MeComponent,
     LoginComponent,
     JobsComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent,
+    UsersComponent
   ],
   imports: [  
     BrowserModule,
@@ -36,20 +41,12 @@ import { AgmCoreModule } from '@agm/core';
     NgbModule,
     FormsModule,
     HttpClientModule,
+    CommonModule,
     
     StoreModule.forRoot(ROOT_REDUCER, {
       initialState: MANAGER_INITIAL_STATE
     }),
-    EffectsModule.forRoot([...effects]),
-    // AgmCoreModule.forRoot({
-    //   apiKey: 'AIzaSyBpGtPx9OHPPlo2X1y-Up_tjUs1zNeIZV0'
-    // }),
-    AgmCoreModule.forRoot(
-      {
-        apiKey: 'AIzaSyBpGtPx9OHPPlo2X1y-Up_tjUs1zNeIZV0',
-        libraries: ['places']
-      }
-    ),
+    EffectsModule.forRoot([...effects])
   ],
   providers: [CanActivateViaAuthGuard, LoginService, JobsService, CookieService,ProfileMeService,
     { provide: HTTP_INTERCEPTORS, useClass: RestApiInterceptorService, multi: true }

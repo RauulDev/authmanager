@@ -20,16 +20,16 @@ export class LoginEffects {
             return this.loginService.login(payload.email, payload.password)
                 .pipe(
                     map((result: any) => {
-                        const hours = result.expires_in / 3600;
+                        const hours = result.expirationTime / 3600;
                         var dt = new Date();
                         dt.setHours(dt.getHours() + hours);
                         this.cookieService.set('AUTH', JSON.stringify(result), dt);
                         this.store.dispatch(new GetProfileService());
-                        this.store.dispatch(new LoadJOBSService());
-                        this.router.navigate(['/me']);
-                        return new LoginServiceSuccess(result);
+                        this.router.navigate(['/home']);
                     })
-                )
+                ).pipe(map((rr)=>{
+                    return new LoginServiceSuccess();
+                }))
         }),
         catchError((err, caught) => {
             this.store.dispatch(new LoginServiceError());

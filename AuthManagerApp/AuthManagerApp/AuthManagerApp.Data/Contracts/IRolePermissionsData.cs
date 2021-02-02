@@ -9,5 +9,6 @@ namespace AuthManagerApp.Data.Contracts
     public interface IRolePermissionsData
     {
         List<Permission> GetPermissionsByRole(int idRole);
+        List<Role> GetRoles();
     }
 }

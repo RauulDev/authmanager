@@ -20,5 +20,10 @@ namespace AuthManager.Logic.Providers
         {
             return _rolePermissionsData.GetPermissionsByRole(idRole);
         }
+
+        public List<Role> GetRoles()
+        {
+            return _rolePermissionsData.GetRoles();
+        }
     }
 }

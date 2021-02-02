@@ -46,13 +46,13 @@ namespace AuthManagerApp.Data.Providers
 
         public async Task<User> Get(int id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(user => user.Id == id);
+            var user = await _context.Users.Include(e=>e.RoleNavigation).FirstOrDefaultAsync(user => user.Id == id);
             return user;
         }
 
         public async Task<List<User>> GetAll()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.Include(e=>e.RoleNavigation).ToListAsync();
         }
     }
 }

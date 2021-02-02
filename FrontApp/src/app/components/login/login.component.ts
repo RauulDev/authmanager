@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     const cookieAUTH = this.cookieService.get('AUTH');
     if (cookieAUTH) {
-      this.router.navigate(['/me']);
+      this.router.navigate(['/home']);
     }
   }
 

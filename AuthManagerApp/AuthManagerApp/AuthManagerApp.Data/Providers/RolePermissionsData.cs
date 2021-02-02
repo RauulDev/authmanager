@@ -21,5 +21,10 @@ namespace AuthManagerApp.Data.Providers
             var permissions = _context.RolePermissions.Where(rp => rp.IdRole == idRole).Select(s => s.IdPermissionNavigation);
             return  permissions.ToList();
         }
+
+        public List<Role> GetRoles()
+        {
+            return _context.Roles.ToList();
+        }
     }
 }

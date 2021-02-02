@@ -5,10 +5,6 @@
     <div class="row">
         <div class="col-lg-12 text-center">
             <div class="map">
-                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="2">
-                    <agm-marker [latitude]="coord.latitude" [longitude]="coord.longitude" [iconUrl]="getIconUrl(coord)"
-                        *ngFor="let coord of coords" (markerClick)="onMarkerClick($event)"></agm-marker>
-                </agm-map>
             </div>
             <table class="table table-striped">
                 <thead>

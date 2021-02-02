@@ -46,6 +46,10 @@ namespace AuthManagerApp.Data.Models
                     .HasMaxLength(200)
                     .HasColumnName("description");
 
+                entity.Property(e => e.Family)
+                    .HasMaxLength(50)
+                    .HasColumnName("family");
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50)

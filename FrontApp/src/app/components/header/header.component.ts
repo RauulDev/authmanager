@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ProfileMeService } from 'src/app/services/me.service';
 
 @Component({
   selector: 'app-header',
@@ -7,10 +8,22 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() user;
-  constructor() { }
+  user;
+  permissions;
+  showUsersMenu: boolean;
+  constructor(private _profileMeService: ProfileMeService) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.user = await this._profileMeService.getProfileMe().toPromise();
+    var permissions: any = await this._profileMeService.getPermissions().toPromise();
+    var permissionsArr = [];
+    permissions.forEach(element => {
+      permissionsArr.push(element.name);
+      if (element.family == "ManageUsers") {
+        this.showUsersMenu = true;
+      }
+    });
+    sessionStorage.setItem("permissions", permissionsArr.join());
   }
 
 }
