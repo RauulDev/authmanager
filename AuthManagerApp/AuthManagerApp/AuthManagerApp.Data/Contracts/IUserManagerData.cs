@@ -1,4 +1,6 @@
-﻿using AuthManagerApp.Data.Models;
+﻿using AuthManager.Entities;
+using AuthManagerApp.Data.Models;
+using AuthManagerApp.Data.Providers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,5 +15,6 @@ namespace AuthManagerApp.Data.Contracts
         Task<User> Add(User user);
         Task<List<User>> GetAll();
         Task<bool> Delete(int id);
+        Task<bool> Update(UserDTO user);
     }
 }

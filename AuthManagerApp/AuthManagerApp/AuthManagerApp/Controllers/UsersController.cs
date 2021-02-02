@@ -70,5 +70,12 @@ namespace AuthManagerApp.Controllers
             return Ok(await _usersManager.Delete(id));
         }
 
+        [HttpPut()]
+        [HasPermission(PermissionsEnum.EditUsers)]
+        public async Task<ActionResult<User>> UpdateUser([FromBody] UserDTO user)
+        {
+            return Ok(await _usersManager.Update(user));
+        }
+
     }
 }

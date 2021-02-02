@@ -27,11 +27,11 @@
                         <td>{{user.loginName}}</td>
                         <td>{{user.role}}</td>
                         <td>
-                            <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                            <button type="button" class="btn btn-success" *ngIf="hasPermission('EditUsers')"><i
-                                    class="fas fa-edit"></i></button>
-                            <button type="button" class="btn btn-danger" (click)="deleteUser(user.id)" *ngIf="hasPermission('DeleteUsers')"><i
-                                    class="far fa-trash-alt"></i></button>
+                            <button type="button" class="btn btn-primary" (click)="openEditModal(content, user.id, false)"><i class="far fa-eye"></i></button>
+                            <button type="button" class="btn btn-success" (click)="openEditModal(content, user.id)"
+                                *ngIf="hasPermission('EditUsers')"><i class="fas fa-edit"></i></button>
+                            <button type="button" class="btn btn-danger" (click)="deleteUser(user.id)"
+                                *ngIf="hasPermission('DeleteUsers')"><i class="far fa-trash-alt"></i></button>
                         </td>
                     </tr>
                 </tbody>
@@ -66,12 +66,50 @@
             aria-describedby="emailHelp" placeholder="Enter email">
     </div>
     <div class="form-group">
-        <label for="exampleInputEmail1" >Login name</label>
+        <label for="exampleInputEmail1">Login name</label>
         <input class="form-control" [(ngModel)]="addUserModel.loginName">
     </div>
     <div class="form-group">
-        <label for="exampleInputPassword1" >Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="addUserModel.password" placeholder="Password">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="addUserModel.password"
+            placeholder="Password">
     </div>
-    <button class="btn btn-primary" (click)="saveUser()">Submit</button>
+    <button class="btn btn-primary" style="margin-bottom: 3rem;" (click)="saveUser()">Submit</button>
+    <ngb-alert *ngIf="showSuccessSave" [type]="'success'">User created successfully</ngb-alert>
+
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">User {{editUserModel?.email}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Full name</label>
+            <input class="form-control" name="fullname" [(ngModel)]="editUserModel.fullName">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Phone</label>
+            <input class="form-control" name="phone" [(ngModel)]="editUserModel.phone">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Address</label>
+            <input class="form-control" [(ngModel)]="editUserModel.address" name="address">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" [(ngModel)]="editUserModel.email"
+                aria-describedby="emailHelp" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Login name</label>
+            <input class="form-control" [(ngModel)]="editUserModel.loginName">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" *ngIf="showSaveButton" class="btn btn-outline-dark" (click)="editUser();modal.close('Save click')">Save</button>
+    </div>
+</ng-template>

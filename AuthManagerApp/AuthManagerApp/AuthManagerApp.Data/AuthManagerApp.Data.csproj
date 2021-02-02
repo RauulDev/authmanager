@@ -16,4 +16,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AuthManager.Entities\AuthManager.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

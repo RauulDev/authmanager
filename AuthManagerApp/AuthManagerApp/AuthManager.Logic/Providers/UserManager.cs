@@ -38,7 +38,8 @@ namespace AuthManager.Logic.Providers
                 Email = user.Email,
                 FullName = user.FullName,
                 Phone = user.Phone,
-                Role = user.RoleNavigation.Name
+                Role = user.RoleNavigation.Name,
+                LoginName = user.LoginName
             };
         }
 
@@ -59,6 +60,11 @@ namespace AuthManager.Logic.Providers
             //var usersMapped = 
 
             return users;
+        }
+
+        public async Task<bool> Update(UserDTO user)
+        {
+            return await _userManagerData.Update(user);
         }
     }
 }

@@ -13,5 +13,6 @@ namespace AuthManager.Logic.Contracts
         Task<UserDTO> Get(int id);
         Task<List<UserDTO>> GetAll();
         Task<bool> Delete(int id);
+        Task<bool> Update(UserDTO user);
     }
 }

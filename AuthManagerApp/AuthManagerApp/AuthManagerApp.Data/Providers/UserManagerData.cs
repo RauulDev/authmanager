@@ -6,6 +6,7 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using AuthManager.Entities;
 
 namespace AuthManagerApp.Data.Providers
 {
@@ -28,7 +29,7 @@ namespace AuthManagerApp.Data.Providers
         public async Task<bool> Delete(int id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(user => user.Id == id);
-            if(user != null)
+            if (user != null)
             {
                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
@@ -46,13 +47,29 @@ namespace AuthManagerApp.Data.Providers
 
         public async Task<User> Get(int id)
         {
-            var user = await _context.Users.Include(e=>e.RoleNavigation).FirstOrDefaultAsync(user => user.Id == id);
+            var user = await _context.Users.Include(e => e.RoleNavigation).FirstOrDefaultAsync(user => user.Id == id);
             return user;
         }
 
         public async Task<List<User>> GetAll()
         {
-            return await _context.Users.Include(e=>e.RoleNavigation).ToListAsync();
+            return await _context.Users.Include(e => e.RoleNavigation).ToListAsync();
+        }
+
+        public async Task<bool> Update(UserDTO user)
+        {
+            var userToUpdate = await _context.Users.FirstOrDefaultAsync(f => f.Id == user.Id);
+            if (userToUpdate == null)
+            {
+                return false;
+            }
+            userToUpdate.Address = user.Address;
+            userToUpdate.Email = user.Email;
+            userToUpdate.FullName = user.FullName;
+            userToUpdate.LoginName = user.LoginName;
+            userToUpdate.Phone = user.Phone;
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

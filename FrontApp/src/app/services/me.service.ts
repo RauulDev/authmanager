@@ -15,6 +15,10 @@ export class ProfileMeService {
         return this._http.get(`${environment.apiUrl}/users`);
     }
 
+    getUser(id) {
+        return this._http.get(`${environment.apiUrl}/users/${id}`);
+    }
+
     getPermissions() {
         return this._http.get(`${environment.apiUrl}/users/permissions`);
     }
@@ -29,6 +33,10 @@ export class ProfileMeService {
 
     deleteUser(id) {
         return this._http.delete(`${environment.apiUrl}/users/${id}`);
+    }
+
+    editUser(user) {
+        return this._http.put(`${environment.apiUrl}/users`, user);
     }
 
 }
